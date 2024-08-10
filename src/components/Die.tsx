@@ -1,7 +1,11 @@
-export default function Die() {
+interface DieProps {
+  value: number;
+}
+
+export default function Die({ value }: DieProps) {
   return (
     <div className="die">
-      <p className="number">1</p>
+      <h2 className="die-number">{value}</h2>
     </div>
   );
 }

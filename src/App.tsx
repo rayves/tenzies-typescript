@@ -1,9 +1,10 @@
 import './App.scss';
 import Die from './components/Die';
+import { generateRandomNumber } from './common/helperMethods';
 
 function App() {
   const dies = [...Array(10).keys()].map((num) => {
-    return <Die key={num} />;
+    return <Die key={num} value={generateRandomNumber(6)} />;
   });
   return (
     <main>
