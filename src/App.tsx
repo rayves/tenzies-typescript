@@ -2,19 +2,20 @@ import './App.scss';
 import { useState } from 'react';
 import Die from './components/Die';
 import { DieData } from './common/types';
-import { generateRandomNumber } from './common/helperMethods';
-import { nanoid } from 'nanoid';
+import { generateNewDie, generateRandomNumber } from './common/helperFunctions';
 
 function App() {
-  const [dice, setDice] = useState(allNewDice());
+  const [dice, setDice] = useState<DieData[]>(
+    Array.from({ length: 10 }, () => {
+      return generateNewDie();
+    }),
+  );
 
-  function allNewDice(): DieData[] {
-    return Array.from({ length: 10 }, () => {
-      return {
-        id: nanoid(),
-        value: generateRandomNumber(6),
-        isHeld: false,
-      };
+  function reRollDice() {
+    setDice((prevDice) => {
+      return prevDice.map((die) => {
+        return die.isHeld ? die : { ...die, value: generateRandomNumber(6) };
+      });
     });
   }
 
@@ -37,7 +38,7 @@ function App() {
           <h1>Tenzies</h1>
         </header>
         <div className="die-container">{diceElements}</div>
-        <button className="die-roll" onClick={() => setDice(allNewDice())}>
+        <button className="die-roll" onClick={reRollDice}>
           Roll
         </button>
       </div>
