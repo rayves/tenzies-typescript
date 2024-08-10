@@ -12,3 +12,9 @@ export function generateNewDie(): DieData {
     isHeld: false,
   };
 }
+
+export function allNewDice(): DieData[] {
+  return Array.from({ length: 10 }, () => {
+    return generateNewDie();
+  });
+}

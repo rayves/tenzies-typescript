@@ -2,22 +2,24 @@ import './App.scss';
 import { useEffect, useState } from 'react';
 import Die from './components/Die';
 import { DieData } from './common/types';
-import { generateNewDie, generateRandomNumber } from './common/helperFunctions';
+import { allNewDice, generateRandomNumber } from './common/helperFunctions';
 import Confetti from 'react-confetti';
 
 function App() {
   const [tenzies, setTenzies] = useState<boolean>(false);
-  const [dice, setDice] = useState<DieData[]>(
-    Array.from({ length: 10 }, () => {
-      return generateNewDie();
-    }),
-  );
-  function reRollDice(): void {
-    setDice((prevDice) => {
-      return prevDice.map((die) => {
-        return die.isHeld ? die : { ...die, value: generateRandomNumber(6) };
+  const [dice, setDice] = useState<DieData[]>(allNewDice());
+
+  function rollDice(): void {
+    if (tenzies) {
+      setTenzies(false);
+      setDice(allNewDice());
+    } else {
+      setDice((prevDice) => {
+        return prevDice.map((die) => {
+          return die.isHeld ? die : { ...die, value: generateRandomNumber(6) };
+        });
       });
-    });
+    }
   }
 
   function holdDie(id: string): void {
@@ -53,7 +55,7 @@ function App() {
           </p>
         </header>
         <div className="die-container">{diceElements}</div>
-        <button className="die-roll" onClick={reRollDice}>
+        <button className="die-roll" onClick={rollDice}>
           {tenzies ? 'New Game' : 'Roll'}
         </button>
       </div>
