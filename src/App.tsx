@@ -18,8 +18,16 @@ function App() {
     });
   }
 
+  function holdDie(id: string) {
+    setDice((prevDice) => {
+      return prevDice.map((die) => {
+        return die.id === id ? { ...die, isHeld: !die.isHeld } : die;
+      });
+    });
+  }
+
   const diceElements: JSX.Element[] = dice.map((die) => {
-    return <Die props={die} key={die.id} />;
+    return <Die dieProps={die} key={die.id} holdDie={holdDie} />;
   });
 
   return (

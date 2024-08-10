@@ -1,13 +1,18 @@
 import { DieData } from '../common/types';
 
 interface DieProps {
-  props: DieData;
+  dieProps: DieData;
+  holdDie: (id: string) => void;
 }
 
-export default function Die({ props }: DieProps) {
+export default function Die({ dieProps, holdDie }: DieProps) {
+  const styles = {
+    backgroundColor: dieProps.isHeld ? '#59e391' : '#ffffff',
+  };
+
   return (
-    <button className="die">
-      <h2 className="die-number">{props.value}</h2>
+    <button className="die" style={styles} onClick={() => holdDie(dieProps.id)}>
+      <h2 className="die-number">{dieProps.value}</h2>
     </button>
   );
 }
