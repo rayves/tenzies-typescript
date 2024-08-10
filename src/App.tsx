@@ -34,8 +34,12 @@ function App() {
   return (
     <main>
       <div className="game-container">
-        <header>
-          <h1>Tenzies</h1>
+        <header className="header-container">
+          <h1 className="header-title">Tenzies</h1>
+          <p className="header-text">
+            Roll until all dice are the same. Click each die to freeze it at its
+            current value between rolls.
+          </p>
         </header>
         <div className="die-container">{diceElements}</div>
         <button className="die-roll" onClick={reRollDice}>
