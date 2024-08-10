@@ -4,8 +4,8 @@ interface DieProps {
 
 export default function Die({ value }: DieProps) {
   return (
-    <div className="die">
+    <button className="die">
       <h2 className="die-number">{value}</h2>
-    </div>
+    </button>
   );
 }

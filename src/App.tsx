@@ -21,6 +21,9 @@ function App() {
           <h1>Tenzies</h1>
         </header>
         <div className="die-container">{diceElements}</div>
+        <button className="die-roll" onClick={() => setDice(allNewDice())}>
+          Roll
+        </button>
       </div>
     </main>
   );
