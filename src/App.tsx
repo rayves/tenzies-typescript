@@ -1,17 +1,17 @@
 import './App.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Die from './components/Die';
 import { DieData } from './common/types';
 import { generateNewDie, generateRandomNumber } from './common/helperFunctions';
 
 function App() {
+  const [tenzies, setTenzies] = useState<boolean>(false);
   const [dice, setDice] = useState<DieData[]>(
     Array.from({ length: 10 }, () => {
       return generateNewDie();
     }),
   );
-
-  function reRollDice() {
+  function reRollDice(): void {
     setDice((prevDice) => {
       return prevDice.map((die) => {
         return die.isHeld ? die : { ...die, value: generateRandomNumber(6) };
@@ -19,7 +19,7 @@ function App() {
     });
   }
 
-  function holdDie(id: string) {
+  function holdDie(id: string): void {
     setDice((prevDice) => {
       return prevDice.map((die) => {
         return die.id === id ? { ...die, isHeld: !die.isHeld } : die;
@@ -30,6 +30,15 @@ function App() {
   const diceElements: JSX.Element[] = dice.map((die) => {
     return <Die dieProps={die} key={die.id} holdDie={holdDie} />;
   });
+
+  useEffect(() => {
+    const startDieValue = dice[0].value;
+    for (const die of dice) {
+      if (!die.isHeld || die.value !== startDieValue) return;
+    }
+    setTenzies(true);
+    console.log('You Won!');
+  }, [dice]);
 
   return (
     <main>
