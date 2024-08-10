@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Die from './components/Die';
 import { DieData } from './common/types';
 import { generateNewDie, generateRandomNumber } from './common/helperFunctions';
+import Confetti from 'react-confetti';
 
 function App() {
   const [tenzies, setTenzies] = useState<boolean>(false);
@@ -42,6 +43,7 @@ function App() {
 
   return (
     <main>
+      {tenzies && <Confetti />}
       <div className="game-container">
         <header className="header-container">
           <h1 className="header-title">Tenzies</h1>
@@ -52,7 +54,7 @@ function App() {
         </header>
         <div className="die-container">{diceElements}</div>
         <button className="die-roll" onClick={reRollDice}>
-          Roll
+          {tenzies ? 'New Game' : 'Roll'}
         </button>
       </div>
     </main>
