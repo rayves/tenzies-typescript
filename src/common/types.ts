@@ -1,4 +1,5 @@
-export interface Die {
+export interface DieData {
+  id: string;
   value: number;
-  selected: boolean;
+  isHeld: boolean;
 }

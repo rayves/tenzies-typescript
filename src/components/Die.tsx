@@ -1,11 +1,13 @@
+import { DieData } from '../common/types';
+
 interface DieProps {
-  value: number;
+  props: DieData;
 }
 
-export default function Die({ value }: DieProps) {
+export default function Die({ props }: DieProps) {
   return (
     <button className="die">
-      <h2 className="die-number">{value}</h2>
+      <h2 className="die-number">{props.value}</h2>
     </button>
   );
 }
